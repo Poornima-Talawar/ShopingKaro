@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopingkaro-app
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: shopingkaro
+  template:
+    metadata:
+      labels:
+        app: shopingkaro
+    spec:
+      containers:
+        - name: shopingkaro
+          image: shopingkaro-backend:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: mongodb-secret
+                  key: uri
+            - name: NODE_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: NODE_ENV
+ 
