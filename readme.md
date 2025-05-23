@@ -1,3 +1,47 @@
+#KhushiBaby Docker Optimization challenges
+1. Key Optimization:
+Multi-Stage Builds: Separates build and production stages to ensure only necessary files are included in the final image.
+
+Slim Base Image: Utilizes node:18-slim to reduce image size.
+
+Non-Root User: Runs the application as a non-root user (appuser) to enhance security.
+
+Efficient Dependency Installation: Uses npm ci --omit=dev to install only production dependencies, ensuring faster and more reliable builds.
+
+.dockerignore Usage: Excludes unnecessary files and directories from the Docker context to minimize image size.
+
+
+
+2. Optimization reduced image size, leading to faster deployment and reduced resource consumption.
+
+
+3.Security Checklist
+
+Non-Root Execution: Application runs as a non-root user to limit potential vulnerabilities.
+
+Minimal Base Image: Reduces attack surface by using a slim base image.
+
+Exclusion of Dev Dependencies: Ensures only necessary packages are included in the production image.
+
+.dockerignore: Prevents sensitive files (e.g., .env, .git) from being added to the image.
+
+
+4. Building and running docker image locally
+1. Clone the Repository:
+
+2. Build the Docker Image:
+
+docker build -t shopingkaro-app .
+
+
+3. Run the Docker Container:
+
+docker run -p 3000:3000 shopingkaro-app
+
+The application will be accessible at http://localhost:3000.
+
+
+
 # ShopingKaro
 
 ShopingKaro is a web application developed in Node.js that allows users to easily browse and shop for various products. With a user-friendly interface and a variety of features, ShopingKaro aims to provide a seamless online shopping experience.
